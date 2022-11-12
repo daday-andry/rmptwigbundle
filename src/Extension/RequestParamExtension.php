@@ -2,8 +2,8 @@
 /**
  * @ Author: Daday ANDRY
  * @ Create Time: 2022-11-12 19:01:57
- * @ Modified by: Daday ANDRY
- * @ Modified time: 2022-11-12 19:05:46
+ * @ Modified by: Your name
+ * @ Modified time: 2022-11-12 22:02:47
  * @ Description:
  */
 namespace DadayAndry\RpmTwigBundle\Extension;
@@ -29,17 +29,30 @@ class RequestParamExtension extends AbstractExtension
         
         return [
             new TwigFunction(
-                'appendParam' , 
-                [$this , 'appendParam']
+                'getRouteParam' , 
+                [$this , 'getRouteParam']
             ),
             new TwigFunction(
-                'removeParam' , 
-                [$this , 'removeParam']
+                'appendRouteParam' , 
+                [$this , 'appendRouteParam']
+            ),
+            new TwigFunction(
+                'removeRouteParam' , 
+                [$this , 'removeRouteParam']
             )
         ];
     }
 
-    public function appendParam($param, $value)
+    public function getRouteParam($param, $default = null)
+    {
+        $request = $this->request->getCurrentRequest();
+        $params  = $request->query->all();
+        $value   = $request->get($param, false);
+        return  $value ? $value : $default; 
+        
+    }
+
+    public function appendRouteParam($param, $value)
     {
         $request = $this->request->getCurrentRequest();
         $params  = $request->query->all();
@@ -49,7 +62,7 @@ class RequestParamExtension extends AbstractExtension
         return $this->router->generate($routeName,$params);
         
     }
-    public function removeParam($param)
+    public function removeRouteParam($param)
     {
         $request = $this->request->getCurrentRequest();
         $params  = $request->query->all();

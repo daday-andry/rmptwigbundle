@@ -3,7 +3,7 @@
  * @ Author: Daday ANDRY
  * @ Create Time: 2022-11-12 19:25:03
  * @ Modified by: Daday ANDRY
- * @ Modified time: 2022-11-12 19:51:49
+ * @ Modified time: 2023-12-06 18:57:42
  * @ Description:
  */
 
@@ -24,7 +24,7 @@ class RpmTwigExtension extends Extension
         $loader->load('services.yaml');
     }
     
-    public function getAlias()
+    public function getAlias(): string
     {
         return parent::getAlias();
     }
